@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDLiSiteAPI", "PDLiSiteAPI.csproj", "{CE73330E-D514-4025-BB26-F3D84D595EBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1D817B7-44DB-41E6-A047-E22CE1ADE466}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE73330E-D514-4025-BB26-F3D84D595EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE73330E-D514-4025-BB26-F3D84D595EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE73330E-D514-4025-BB26-F3D84D595EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE73330E-D514-4025-BB26-F3D84D595EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A539DEB3-74E5-444C-B3A3-856CF87EAAB1}
+	EndGlobalSection
+EndGlobal
