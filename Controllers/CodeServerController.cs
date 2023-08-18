@@ -6,7 +6,7 @@ using static PDLiSiteAPI.Models.ServiceResults;
 namespace PDLiSiteAPI.Controllers;
 
 [ApiController]
-[Route("Api/[controller]")]
+[Route("Api/[controller]/[action]")]
 public class CodeServerController : ControllerBase
 {
     private readonly ILogger<CodeServerController> _logger;
@@ -21,7 +21,7 @@ public class CodeServerController : ControllerBase
         _CodeServerService = CodeServerService;
     }
 
-    [HttpPost("Start")]
+    [HttpPost]
     public ActionResult<StartResult> StartCodeServer()
     {
         try
@@ -45,7 +45,7 @@ public class CodeServerController : ControllerBase
         return Ok(res);
     }
 
-    [HttpGet("GetLog")]
+    [HttpGet]
     public ActionResult<GetLogResult> GetLog()
     {
         try
@@ -69,7 +69,7 @@ public class CodeServerController : ControllerBase
         }
     }
 
-    [HttpPost("PostCmd")]
+    [HttpPost]
     public ActionResult<PostCmdResult> PostCmd(string cmd)
     {
         try
@@ -90,7 +90,7 @@ public class CodeServerController : ControllerBase
         return Ok(res);
     }
 
-    [HttpPost("Stop")]
+    [HttpPost]
     public ActionResult<StopResult> Stop()
     {
         try

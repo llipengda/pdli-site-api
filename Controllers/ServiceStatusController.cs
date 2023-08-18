@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace PDLiSiteAPI.Controllers;
 
-[Route("Api/[controller]")]
+[Route("Api/[controller]/[action]")]
 [ApiController]
 public class ServiceStatusController : ControllerBase
 {
@@ -21,14 +21,14 @@ public class ServiceStatusController : ControllerBase
         _serviceStatusService = serviceStatusService;
     }
 
-    [HttpGet("{name}")]
+    [HttpGet]
     public ActionResult<ServiceStatus> Get(string name)
     {
         try
         {
             var res = _serviceStatusService.GetServiceStatus(name);
             _logger.LogInformation(
-                "GET /Api/ServicesStatus/{name} {res}",
+                "GET /Api/ServicesStatus/Get?name={name} {res}",
                 name,
                 JsonSerializer.Serialize(res)
             );
@@ -36,7 +36,7 @@ public class ServiceStatusController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "GET /Api/ServicesStatus/{name} ERROR", name);
+            _logger.LogError(ex, "GET /Api/ServicesStatus/Get?name={name} ERROR", name);
             var err = new ServiceStatus()
             {
                 Success = false,

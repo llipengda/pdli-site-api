@@ -6,7 +6,7 @@ using static PDLiSiteAPI.Models.ServiceResults;
 namespace PDLiSiteAPI.Controllers;
 
 [ApiController]
-[Route("Api/[controller]")]
+[Route("Api/[controller]/[action]")]
 public class MinecraftController : ControllerBase
 {
     private readonly ILogger<MinecraftController> _logger;
@@ -21,8 +21,8 @@ public class MinecraftController : ControllerBase
         _minecraftService = minecraftService;
     }
 
-    [HttpPost("Start")]
-    public ActionResult<StartResult> StartMinecraft()
+    [HttpPost]
+    public ActionResult<StartResult> Start()
     {
         try
         {
@@ -45,7 +45,7 @@ public class MinecraftController : ControllerBase
         return Ok(res);
     }
 
-    [HttpGet("GetLog")]
+    [HttpGet]
     public ActionResult<GetLogResult> GetLog()
     {
         try
@@ -69,7 +69,7 @@ public class MinecraftController : ControllerBase
         }
     }
 
-    [HttpPost("PostCmd")]
+    [HttpPost]
     public ActionResult<PostCmdResult> PostCmd(string cmd)
     {
         try
@@ -90,7 +90,7 @@ public class MinecraftController : ControllerBase
         return Ok(res);
     }
 
-    [HttpPost("Stop")]
+    [HttpPost]
     public ActionResult<StopResult> Stop()
     {
         try
