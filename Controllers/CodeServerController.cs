@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
 using System.Text.Json;
 using static PDLiSiteAPI.Models.ServiceResults;
@@ -6,6 +7,7 @@ using static PDLiSiteAPI.Models.ServiceResults;
 namespace PDLiSiteAPI.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Admin")]
 [Route("Api/[controller]/[action]")]
 public class CodeServerController : ControllerBase
 {
@@ -22,7 +24,7 @@ public class CodeServerController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<StartResult> StartCodeServer()
+    public ActionResult<StartResult> Start()
     {
         try
         {
@@ -46,6 +48,7 @@ public class CodeServerController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult<GetLogResult> GetLog()
     {
         try
