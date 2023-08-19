@@ -39,7 +39,7 @@ builder.Services.AddCors(option =>
     option.AddDefaultPolicy(
         policy =>
             policy
-                .WithOrigins("http://localhost:5173")
+                .WithOrigins("http://pdli.site", "https://pdli.site")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
