@@ -8,19 +8,12 @@ namespace PDLiSiteAPI.Controllers;
 [Route("Api/[controller]")]
 public class LoginController : ControllerBase
 {
-    private readonly ILogger<LoginController> _logger;
-
     private readonly IConfiguration _configuration;
 
     private readonly ILoginService _loginService;
 
-    public LoginController(
-        ILogger<LoginController> logger,
-        IConfiguration configuration,
-        ILoginService loginService
-    )
+    public LoginController(IConfiguration configuration, ILoginService loginService)
     {
-        _logger = logger;
         _configuration = configuration;
         _loginService = loginService;
     }
@@ -38,22 +31,13 @@ public class LoginController : ControllerBase
     {
         if (string.IsNullOrEmpty(password))
         {
-            _logger.LogWarning(
-                "POST /Api/Login?password={password} ERROR Password can't be empty",
-                password
-            );
             return BadRequest("Password can't be empty");
         }
         if (password.Trim() != _configuration["Password"])
         {
-            _logger.LogWarning(
-                "POST /Api/Login?password={password} ERROR INCORRECT PASSWORD",
-                password
-            );
             return Unauthorized("The password is incorrect, please try again");
         }
         var token = _loginService.Generate();
-        _logger.LogInformation("POST /Api/Login?password={password} {token}", password, token);
         return Ok(token);
     }
 }
