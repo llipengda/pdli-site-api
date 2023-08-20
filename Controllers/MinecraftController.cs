@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
+using PDLiSiteAPI.Models;
 using System.Text.Json;
-using static PDLiSiteAPI.Models.ServiceResults;
 
 namespace PDLiSiteAPI.Controllers;
 
