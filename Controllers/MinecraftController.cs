@@ -32,7 +32,7 @@ public class MinecraftController : ControllerBase
         {
             _minecraftService.Start();
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             return BadRequest(
                 new StartResult()
@@ -64,11 +64,11 @@ public class MinecraftController : ControllerBase
             {
                 Success = isRunning,
                 Log = _minecraftService.OutPut.ToString(),
-                Err = isRunning ? null : "Minecraft is not Running"
+                Err = isRunning ? null : "Minecraft is not running"
             };
             return Ok(res);
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             return BadRequest(new GetLogResult { Success = false, Err = ex.Message });
         }
@@ -88,7 +88,7 @@ public class MinecraftController : ControllerBase
         {
             _minecraftService.Input(cmd);
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             return BadRequest(new PostCmdResult() { Success = false, Err = ex.Message });
         }
@@ -111,7 +111,7 @@ public class MinecraftController : ControllerBase
             _minecraftService.Stop();
             return new StopResult() { Success = true };
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             return BadRequest(new StopResult() { Success = false, Err = ex.Message });
         }

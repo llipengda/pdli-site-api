@@ -19,8 +19,7 @@ public class LoggingFilter : IActionFilter
         var method = context.HttpContext.Request.Method;
         var path = context.HttpContext.Request.Path;
         var query = context.HttpContext.Request.QueryString;
-        var body = new StreamReader(context.HttpContext.Request.Body).ReadToEndAsync().Result;
-        _logger.LogInformation("{method} {path}{query} {body}", method, path, query, body);
+        _logger.LogInformation("[REQUEST]  {method} {path}{query}", method, path, query);
     }
 
     public void OnActionExecuted(ActionExecutedContext context)
@@ -35,7 +34,7 @@ public class LoggingFilter : IActionFilter
         };
         var jsonResult = JsonConvert.SerializeObject(result?.Value, settings);
         _logger.LogInformation(
-            "{method} {path} {status}\n{result}",
+            "[RESPONSE] {method} {path} {status}\n{result}",
             method,
             path,
             status,
