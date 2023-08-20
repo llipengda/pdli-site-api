@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace PDLiSiteAPI.Controllers;
 
@@ -24,8 +25,16 @@ public class LoginController : ControllerBase
         _loginService = loginService;
     }
 
+    /// <summary>
+    /// The method to authentication.
+    /// Returns Ok(200) with a token if ok;
+    /// BadRequest(400) if password is empty;
+    /// Unauthoried(401) if password is incorrect.
+    /// </summary>
+    /// <param name="password">the password</param>
+    /// <returns>token if success else error</returns>
     [HttpPost]
-    public ActionResult<string> Login(string password)
+    public ActionResult<string> Login([Required] string password)
     {
         if (string.IsNullOrEmpty(password))
         {
