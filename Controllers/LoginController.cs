@@ -27,14 +27,14 @@ public class LoginController : ControllerBase
 
     /// <summary>
     /// The method to authentication.
-    /// Returns Ok(200) with a token if ok;
-    /// BadRequest(400) if password is empty;
-    /// Unauthoried(401) if password is incorrect.
     /// </summary>
-    /// <param name="password">the password</param>
+    /// <param name="password">password - example: "123456"</param>
+    /// <response code="200">ok - returns the token</response>
+    /// <response code="400">the password is empty or not a string</response>
+    /// <response code="401">the password is incorrect</response>
     /// <returns>token if success else error</returns>
     [HttpPost]
-    public ActionResult<string> Login([Required] string password)
+    public ActionResult<string> Login([FromBody] [Required] string password)
     {
         if (string.IsNullOrEmpty(password))
         {
@@ -50,7 +50,7 @@ public class LoginController : ControllerBase
                 "POST /Api/Login?password={password} ERROR INCORRECT PASSWORD",
                 password
             );
-            return Unauthorized("INCORRECT PASSWORD");
+            return Unauthorized("The password is incorrect, please try again");
         }
         var token = _loginService.Generate();
         _logger.LogInformation("POST /Api/Login?password={password} {token}", password, token);
