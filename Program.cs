@@ -7,6 +7,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddLog4Net();
+
 builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
