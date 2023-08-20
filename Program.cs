@@ -3,11 +3,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PDLiSiteAPI.Hubs;
 using PDLiSiteAPI.Services;
+using PDLiSiteAPI.Utilities;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Logging.AddLog4Net();
+
+builder.Services.AddControllers(option => option.Filters.Add<LoggingFilter>());
 
 builder.Services.AddSignalR();
 

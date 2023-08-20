@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
-using System.Text.Json;
-using static PDLiSiteAPI.Models.ServiceResults;
+using System.ComponentModel.DataAnnotations;
 
 namespace PDLiSiteAPI.Controllers;
 
@@ -11,15 +10,10 @@ namespace PDLiSiteAPI.Controllers;
 [Route("Api/[controller]/[action]")]
 public class CodeServerController : ControllerBase
 {
-    private readonly ILogger<CodeServerController> _logger;
     private readonly ICodeServerService _CodeServerService;
 
-    public CodeServerController(
-        ILogger<CodeServerController> logger,
-        ICodeServerService CodeServerService
-    )
+    public CodeServerController(ICodeServerService CodeServerService)
     {
-        _logger = logger;
         _CodeServerService = CodeServerService;
     }
 
@@ -32,7 +26,6 @@ public class CodeServerController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "POST /Api/CodeServer/Start ERROR");
             return BadRequest(
                 new StartResult()
                 {
@@ -43,7 +36,6 @@ public class CodeServerController : ControllerBase
             );
         }
         var res = new StartResult() { Success = true, Id = _CodeServerService.Id };
-        _logger.LogInformation("POST /Api/CodeServer/Start {res}", JsonSerializer.Serialize(res));
         return Ok(res);
     }
 
@@ -59,15 +51,10 @@ public class CodeServerController : ControllerBase
                 Log = _CodeServerService.OutPut.ToString(),
                 Err = _CodeServerService.IsRunning() ? null : "CodeServer is not Running"
             };
-            _logger.LogInformation(
-                "GET /Api/CodeServer/GetLog {res}",
-                JsonSerializer.Serialize(res)
-            );
             return Ok(res);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "GET /Api/CodeServer/GetLog ERROR");
             return BadRequest(new GetLogResult { Success = false, Err = ex.Message });
         }
     }
@@ -81,15 +68,9 @@ public class CodeServerController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "GET /Api/CodeServer/PostCmd?cmd={cmd} ERROR", cmd);
             return BadRequest(new PostCmdResult() { Success = false, Err = ex.Message });
         }
         var res = new PostCmdResult() { Success = true, PostedCmd = cmd };
-        _logger.LogInformation(
-            "POST /Api/CodeServer/PostCmd?cmd={cmd} {res}",
-            cmd,
-            JsonSerializer.Serialize(res)
-        );
         return Ok(res);
     }
 
@@ -100,15 +81,10 @@ public class CodeServerController : ControllerBase
         {
             _CodeServerService.Stop();
             var res = new StopResult() { Success = true };
-            _logger.LogInformation(
-                "POST /Api/CodeServer/Stop {res}",
-                JsonSerializer.Serialize(res)
-            );
             return res;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "POST /Api/CodeServer/Stop ERROR");
             return BadRequest(new StopResult() { Success = false, Err = ex.Message });
         }
     }

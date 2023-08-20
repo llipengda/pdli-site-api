@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
-using System.Text.Json;
-using static PDLiSiteAPI.Models.ServiceResults;
+using PDLiSiteAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace PDLiSiteAPI.Controllers;
 
@@ -11,15 +11,10 @@ namespace PDLiSiteAPI.Controllers;
 [Route("Api/[controller]/[action]")]
 public class MinecraftController : ControllerBase
 {
-    private readonly ILogger<MinecraftController> _logger;
     private readonly IMinecraftService _minecraftService;
 
-    public MinecraftController(
-        ILogger<MinecraftController> logger,
-        IMinecraftService minecraftService
-    )
+    public MinecraftController(IMinecraftService minecraftService)
     {
-        _logger = logger;
         _minecraftService = minecraftService;
     }
 
@@ -32,7 +27,6 @@ public class MinecraftController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "POST /Api/Minecraft/Start ERROR");
             return BadRequest(
                 new StartResult()
                 {
@@ -43,7 +37,7 @@ public class MinecraftController : ControllerBase
             );
         }
         var res = new StartResult() { Success = true, Id = _minecraftService.Id };
-        _logger.LogInformation("POST /Api/Minecraft/Start {res}", JsonSerializer.Serialize(res));
+
         return Ok(res);
     }
 
@@ -59,15 +53,11 @@ public class MinecraftController : ControllerBase
                 Log = _minecraftService.OutPut.ToString(),
                 Err = _minecraftService.IsRunning() ? null : "Minecraft is not Running"
             };
-            _logger.LogInformation(
-                "GET /Api/Minecraft/GetLog {res}",
-                JsonSerializer.Serialize(res)
-            );
+
             return Ok(res);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "GET /Api/Minecraft/GetLog ERROR");
             return BadRequest(new GetLogResult { Success = false, Err = ex.Message });
         }
     }
@@ -81,15 +71,10 @@ public class MinecraftController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "GET /Api/Minecraft/PostCmd?cmd={cmd} ERROR", cmd);
             return BadRequest(new PostCmdResult() { Success = false, Err = ex.Message });
         }
         var res = new PostCmdResult() { Success = true, PostedCmd = cmd };
-        _logger.LogInformation(
-            "POST /Api/Minecraft/PostCmd?cmd={cmd} {res}",
-            cmd,
-            JsonSerializer.Serialize(res)
-        );
+
         return Ok(res);
     }
 
@@ -99,13 +84,10 @@ public class MinecraftController : ControllerBase
         try
         {
             _minecraftService.Stop();
-            var res = new StopResult() { Success = true };
-            _logger.LogInformation("POST /Api/Minecraft/Stop {res}", JsonSerializer.Serialize(res));
-            return res;
+            return new StopResult() { Success = true };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "POST /Api/Minecraft/Stop ERROR");
             return BadRequest(new StopResult() { Success = false, Err = ex.Message });
         }
     }
