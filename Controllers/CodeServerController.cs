@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PDLiSiteAPI.Models;
 using PDLiSiteAPI.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -45,11 +46,12 @@ public class CodeServerController : ControllerBase
     {
         try
         {
+            bool isRunning = _CodeServerService.IsRunning();
             var res = new GetLogResult()
             {
-                Success = true,
+                Success = isRunning,
                 Log = _CodeServerService.OutPut.ToString(),
-                Err = _CodeServerService.IsRunning() ? null : "CodeServer is not Running"
+                Err = isRunning ? null : "CodeServer is not Running"
             };
             return Ok(res);
         }
@@ -60,7 +62,7 @@ public class CodeServerController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<PostCmdResult> PostCmd(string cmd)
+    public ActionResult<PostCmdResult> PostCmd([Required] string cmd)
     {
         try
         {

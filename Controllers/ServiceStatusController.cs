@@ -17,7 +17,7 @@ public class ServiceStatusController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<ServiceStatus> Get(string name)
+    public ActionResult<ServiceStatus> Get([Required] string name)
     {
         return _serviceStatusService.GetServiceStatus(name);
     }

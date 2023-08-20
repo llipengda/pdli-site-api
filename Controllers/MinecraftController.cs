@@ -47,11 +47,12 @@ public class MinecraftController : ControllerBase
     {
         try
         {
+            bool isRunning = _minecraftService.IsRunning();
             var res = new GetLogResult()
             {
-                Success = true,
+                Success = isRunning,
                 Log = _minecraftService.OutPut.ToString(),
-                Err = _minecraftService.IsRunning() ? null : "Minecraft is not Running"
+                Err = isRunning ? null : "Minecraft is not Running"
             };
 
             return Ok(res);
@@ -63,7 +64,7 @@ public class MinecraftController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<PostCmdResult> PostCmd(string cmd)
+    public ActionResult<PostCmdResult> PostCmd([Required] string cmd)
     {
         try
         {
