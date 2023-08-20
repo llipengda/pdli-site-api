@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Models;
 using PDLiSiteAPI.Services;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace PDLiSiteAPI.Controllers;
@@ -22,7 +23,7 @@ public class ServiceStatusController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<ServiceStatus> Get(string name)
+    public ActionResult<ServiceStatus> Get([Required] string name)
     {
         try
         {

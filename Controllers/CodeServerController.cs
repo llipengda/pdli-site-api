@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Models;
 using PDLiSiteAPI.Services;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace PDLiSiteAPI.Controllers;
@@ -73,7 +74,7 @@ public class CodeServerController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<PostCmdResult> PostCmd(string cmd)
+    public ActionResult<PostCmdResult> PostCmd([Required] string cmd)
     {
         try
         {

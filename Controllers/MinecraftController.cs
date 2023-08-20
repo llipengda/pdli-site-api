@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PDLiSiteAPI.Services;
 using PDLiSiteAPI.Models;
 using System.Text.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace PDLiSiteAPI.Controllers;
 
@@ -73,7 +74,7 @@ public class MinecraftController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<PostCmdResult> PostCmd(string cmd)
+    public ActionResult<PostCmdResult> PostCmd([Required] string cmd)
     {
         try
         {
