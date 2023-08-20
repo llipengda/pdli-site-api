@@ -19,7 +19,7 @@ public class LoginController : ControllerBase
     }
 
     /// <summary>
-    /// The method to authentication.
+    /// Authentication
     /// </summary>
     /// <param name="password">password - example: "123456"</param>
     /// <response code="200">ok - returns the token</response>

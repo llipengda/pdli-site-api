@@ -16,6 +16,12 @@ public class ServiceStatusController : ControllerBase
         _serviceStatusService = serviceStatusService;
     }
 
+    /// <summary>
+    /// Get status of a service
+    /// </summary>
+    /// <param name="name">name of the service</param>
+    /// <response code="200">Ok</response>
+    /// <returns>a <see cref="ServiceStatus"/> object</returns>
     [HttpGet]
     public ActionResult<ServiceStatus> Get([Required] string name)
     {
