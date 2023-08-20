@@ -54,11 +54,12 @@ public class MinecraftController : ControllerBase
     {
         try
         {
+            bool isRunning = _minecraftService.IsRunning();
             var res = new GetLogResult()
             {
-                Success = true,
+                Success = isRunning,
                 Log = _minecraftService.OutPut.ToString(),
-                Err = _minecraftService.IsRunning() ? null : "Minecraft is not Running"
+                Err = isRunning ? null : "Minecraft is not Running"
             };
             _logger.LogInformation(
                 "GET /Api/Minecraft/GetLog {res}",

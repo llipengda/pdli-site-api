@@ -54,11 +54,12 @@ public class CodeServerController : ControllerBase
     {
         try
         {
+            bool isRunning = _CodeServerService.IsRunning();
             var res = new GetLogResult()
             {
-                Success = true,
+                Success = isRunning,
                 Log = _CodeServerService.OutPut.ToString(),
-                Err = _CodeServerService.IsRunning() ? null : "CodeServer is not Running"
+                Err = isRunning ? null : "CodeServer is not Running"
             };
             _logger.LogInformation(
                 "GET /Api/CodeServer/GetLog {res}",
