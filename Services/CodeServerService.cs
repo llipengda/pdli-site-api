@@ -19,6 +19,10 @@ public interface ICodeServerService
     void Start();
 
     void Stop();
+
+    Task StartAsync();
+
+    Task StopAsync();
 }
 
 public class CodeServerService : ICodeServerService
@@ -125,5 +129,15 @@ public class CodeServerService : ICodeServerService
             _process?.ExitCode
         );
         _process = null;
+    }
+
+    public async Task StartAsync()
+    {
+        await Task.Run(() => Start());
+    }
+
+    public async Task StopAsync()
+    {
+        await Task.Run(() => Stop());
     }
 }

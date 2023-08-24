@@ -6,6 +6,8 @@ namespace PDLiSiteAPI.Services;
 public interface IServiceStatusService
 {
     ServiceStatus GetServiceStatus(string service);
+
+    Task<ServiceStatus> GetServiceStatusAsync(string service);
 }
 
 public class ServiceStatusService : IServiceStatusService
@@ -27,5 +29,10 @@ public class ServiceStatusService : IServiceStatusService
             Name = service,
             Status = isRunning ? "running" : "stopped"
         };
+    }
+
+    public async Task<ServiceStatus> GetServiceStatusAsync(string service)
+    {
+        return await Task.Run(() => GetServiceStatus(service));
     }
 }

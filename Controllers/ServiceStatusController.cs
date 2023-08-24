@@ -17,8 +17,8 @@ public class ServiceStatusController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<ServiceStatus> Get([Required] string name)
+    public async Task<ActionResult<ServiceStatus>> Get([Required] string name)
     {
-        return _serviceStatusService.GetServiceStatus(name);
+        return await _serviceStatusService.GetServiceStatusAsync(name);
     }
 }

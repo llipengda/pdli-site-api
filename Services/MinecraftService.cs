@@ -2,6 +2,7 @@
 using PDLiSiteAPI.Hubs;
 using PDLiSiteAPI.Models;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace PDLiSiteAPI.Services;
@@ -19,6 +20,10 @@ public interface IMinecraftService
     void Start();
 
     void Stop();
+
+    Task StartAsync();
+
+    Task StopAsync();
 }
 
 public class MinecraftService : IMinecraftService
@@ -125,5 +130,15 @@ public class MinecraftService : IMinecraftService
             _process?.ExitCode
         );
         _process = null;
+    }
+
+    public async Task StartAsync()
+    {
+       await Task.Run(() => Start());
+    }
+
+    public async Task StopAsync()
+    {
+       await Task.Run(() => Stop());
     }
 }

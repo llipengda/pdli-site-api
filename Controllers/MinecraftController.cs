@@ -19,11 +19,11 @@ public class MinecraftController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<StartResult> Start()
+    public async Task<ActionResult<StartResult>> StartAsync()
     {
         try
         {
-            _minecraftService.Start();
+            await _minecraftService.StartAsync();
         }
         catch (InvalidOperationException ex)
         {
@@ -80,11 +80,11 @@ public class MinecraftController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<StopResult> Stop()
+    public async Task<ActionResult<StopResult>> StopAsync()
     {
         try
         {
-            _minecraftService.Stop();
+            await _minecraftService.StopAsync();
             return new StopResult() { Success = true };
         }
         catch (InvalidOperationException ex)
