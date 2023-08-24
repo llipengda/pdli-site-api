@@ -18,6 +18,13 @@ public class CodeServerController : ControllerBase
         _CodeServerService = CodeServerService;
     }
 
+    /// <summary>
+    /// Start the CodeServer Service
+    /// </summary>
+    /// <response code="200">Ok</response>
+    /// <response code="400">Failed to start</response>
+    /// <response code="401">Unauthorized</response>
+    /// <returns>a <see cref="StartResult"/> object</returns>
     [HttpPost]
     public ActionResult<StartResult> Start()
     {
@@ -40,6 +47,12 @@ public class CodeServerController : ControllerBase
         return Ok(res);
     }
 
+    /// <summary>
+    /// Get the log of CodeServer Service
+    /// </summary>
+    /// <response code="200">Ok(Maybe)</response>
+    /// <response code="400">Failed to get log</response>
+    /// <returns>a <see cref="GetLogResult"/> object</returns>
     [HttpGet]
     [AllowAnonymous]
     public ActionResult<GetLogResult> GetLog()
@@ -61,6 +74,13 @@ public class CodeServerController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Post a command to CodeServer Service
+    /// </summary>
+    /// <response code="200">Ok</response>
+    /// <response code="400">Failed to post command</response>
+    /// <response code="401">Unauthorized</response>
+    /// <returns>a <see cref="PostCmdResult"/> object</returns>
     [HttpPost]
     public ActionResult<PostCmdResult> PostCmd([Required] string cmd)
     {
@@ -76,6 +96,13 @@ public class CodeServerController : ControllerBase
         return Ok(res);
     }
 
+    /// <summary>
+    /// Stop the CodeServer Service
+    /// </summary>
+    /// <response code="200">Ok</response>
+    /// <response code="400">Failed to stop</response>
+    /// <response code="401">Unauthorized</response>
+    /// <returns>a <see cref="StopResult"/> object</returns>
     [HttpPost]
     public ActionResult<StopResult> Stop()
     {

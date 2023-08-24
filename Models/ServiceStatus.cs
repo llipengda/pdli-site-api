@@ -1,5 +1,8 @@
 ﻿namespace PDLiSiteAPI.Models;
 
+/// <summary>
+/// The result when trying to get the status of a service
+/// </summary>
 public class ServiceStatus
 {
     public bool Success { get; set; }
