@@ -30,7 +30,7 @@ public class CodeServerController : ControllerBase
     {
         try
         {
-            _CodeServerService.Start();
+            _CodeServerService.StartAsync();
         }
         catch (InvalidOperationException ex)
         {
@@ -108,7 +108,7 @@ public class CodeServerController : ControllerBase
     {
         try
         {
-            _CodeServerService.Stop();
+            _CodeServerService.StopAsync();
             return new StopResult() { Success = true };
         }
         catch (InvalidOperationException ex)

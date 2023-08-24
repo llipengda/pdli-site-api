@@ -23,8 +23,8 @@ public class ServiceStatusController : ControllerBase
     /// <response code="200">Ok</response>
     /// <returns>a <see cref="ServiceStatus"/> object</returns>
     [HttpGet]
-    public ActionResult<ServiceStatus> Get([Required] string name)
+    public async Task<ActionResult<ServiceStatus>> Get([Required] string name)
     {
-        return _serviceStatusService.GetServiceStatus(name);
+        return await _serviceStatusService.GetServiceStatusAsync(name);
     }
 }
